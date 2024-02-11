@@ -10,11 +10,11 @@
             <!-- Profile Section with boundary -->
             <div class="profile-boundary bg-pink text-center p-3">
                 <div class="profile-pic-container">
-                    <img src="https://user-images.githubusercontent.com/522079/90506845-e8420580-e122-11ea-82ca-31087fc8486c.png" class="img-fluid" alt="Profile Picture">
+                    <img src="{{current_account_photo.url}}" class="img-fluid" alt="Profile Picture">
                 </div>
                 <div class="profile-text">
-                    <p>Jane Doe</p>
-                    <p>Research Scientist</p>
+                    <p>{{request.user.username}}</p>
+                    <p>{{request.user.date_joined}}</p>
                     <p>Specializing in Biotechnology</p>
                 </div>
             </div>
@@ -30,6 +30,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Project "{{ i.title }}"</h5>
                             <p>Details of Project:  {{ i.description }}</p>
+                            <a href="{{i.get_absolute_url}}" class="btn btn-primary">Go to Link</a>
                         </div>
                     </div>
                 </div>
@@ -37,7 +38,7 @@
             </div>
             <!-- Button to add more projects -->
             <div class="text-right my-2">
-                <button class="btn btn-outline-success btn-sm">Add more projects as needed</button>
+                <button class="btn btn-outline-success btn-sm">Initiate new project</button>
             </div>
         </div>
     </div>

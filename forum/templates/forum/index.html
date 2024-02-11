@@ -12,7 +12,7 @@
             <div class="row">
                 <div class="card-container">
                 {% for post, users in posts_with_users %}
-                
+  
                 <div class="col-md-4">
                     <div class="card mb-4 shadow" style="border-radius: 15px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
                         <div class="card-body">
@@ -24,6 +24,7 @@
                             <div class="user-images d-flex">
                                 {% for user in users %}
                                 {% if forloop.counter <= 3 %}
+                                <!-- <img src="{{user.photo.url}}" class="img-fluid" alt="Profile Picture"> -->
                                 <img src="{{ user.photo.url }}" alt="{{ user.username }}'s photo" style="width:40px; height:40px; border-radius: 50%; margin-left: -10px; border: 2px solid white;">
                                 {%endif%}
                                 {% endfor %}

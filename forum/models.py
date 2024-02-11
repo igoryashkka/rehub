@@ -4,6 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
+from django.urls import reverse
 # Create your models here.
 
 class Topic(models.Model):
@@ -16,6 +17,7 @@ class Topic(models.Model):
     
 #something like project 
 class Post(models.Model):
+    slug = models.SlugField(max_length = 255, unique = True,db_index = True,verbose_name = 'URL',null=True)
     title = models.CharField(max_length=100)
     status = models.IntegerField(null = True)
     description = models.TextField(null=True)
@@ -29,6 +31,9 @@ class Post(models.Model):
     
     def __str__(self):
         return f"Post by {self.created_by.username} in {self.topic.title}"
+    
+    def get_absolute_url(self):
+        return reverse('project',kwargs={'slug':self.slug})
 
 
 class CustomUser(AbstractUser):
