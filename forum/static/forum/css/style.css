@@ -43,5 +43,59 @@ main {
 }
 
 .card {
-    margin-bottom: 10px; /* Spacing between project cards */
+    margin-bottom: 5px; /* Spacing between project cards */
 }
+
+
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* .col-md-4 {
+    display: flex;
+   
+    height: 100%; 
+} */
+
+.equal-height-card {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px; /* Spacing between project cards */
+    border-radius: 15px; /* as per your style */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* as per your style */
+    overflow: hidden; /* as per your style */
+    background: url('path_to_your_background_image'); /* as per your style */
+    background-size: cover; /* as per your style */
+    height: 100%; /* Stretch to the height of the container */
+}
+
+
+.card {
+    margin-bottom: 5px; /* Reduced from 10px for less space */
+}
+
+/* Flexbox container for equal height columns */
+.equal-height-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Equal height for news panel and carousel */
+.equal-height-container > div {
+    display: flex;
+    flex-direction: column;
+    /* flex-grow: 1; */
+}
+
+/* CSS for news panel to take remaining height */
+.news-panel {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Make sure it stretches to the height of its container */
+}
+
+/* .card-body {
+    flex: 1; 
+} */

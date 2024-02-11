@@ -6,44 +6,37 @@
 <div class="container-fluid">
     <div class="row">
         <!-- Left side for posts -->
-        <div class="col-md-8">
+
+
+        <div class="col-lg-8">
             <div class="row">
+                <div class="card-container">
+                {% for post, users in posts_with_users %}
+                
                 <div class="col-md-4">
-                    <div class="card mb-4">
+                    <div class="card mb-4 shadow" style="border-radius: 15px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
                         <div class="card-body">
-                            <h5 class="card-title">Post Title 1</h5>
-                            <p class="card-text">Description of the first post.</p>
+                            <h5 class="card-title">{{ post.title }}</h5>
+                            <p class="card-text">{{ post.description }}</p>
                         </div>
-                        <div class="card-footer d-flex justify-content-between align-items-center">
+                        <div class="card-footer d-flex justify-content-between align-items-center" style="background: url('path_to_your_background_image'); background-size: cover;">
                             <button class="btn btn-sm btn-primary">Join</button>
-                            <p class="card-text text-muted">Active Title</p>
+                            <div class="user-images d-flex">
+                                {% for user in users %}
+                                {% if forloop.counter <= 3 %}
+                                <img src="{{ user.photo.url }}" alt="{{ user.username }}'s photo" style="width:40px; height:40px; border-radius: 50%; margin-left: -10px; border: 2px solid white;">
+                                {%endif%}
+                                {% endfor %}
+                            </div>
+                            <!-- <p class="card-text text-muted">{{ post.status }}</p> -->
+                            <p class="card-text text-muted">Active</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title">Post Title 2</h5>
-                            <p class="card-text">Description of the second post.</p>
-                        </div>
-                        <div class="card-footer d-flex justify-content-between align-items-center">
-                            <button class="btn btn-sm btn-primary">Join</button>
-                            <p class="card-text text-muted">Active Title</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title">Post Title 3</h5>
-                            <p class="card-text">Description of the third post.</p>
-                        </div>
-                        <div class="card-footer d-flex justify-content-between align-items-center">
-                            <button class="btn btn-sm btn-primary">Join</button>
-                            <p class="card-text text-muted">Active Title</p>
-                        </div>
-                    </div>
-                </div>
+                
+                {% endfor %}
+            </div>
+
                 <!-- Main carousel -->
                 <div class="col-md-12 mb-4">
                     <div id="mainCarousel" class="carousel slide" data-bs-ride="carousel">
@@ -53,8 +46,8 @@
                                     <img src="https://t4.ftcdn.net/jpg/04/49/30/87/360_F_449308752_xkBGspiOsbAADCkET4ihyznpJ8POHmys.jpg" class="d-block w-100 carousel-image" alt="Slide 1">
                                 </div>
                                 <div class="carousel-caption d-none d-md-block">
-                                    <h5>First Slide Label</h5>
-                                    <p>Description for first slide</p>
+                                    <h5>Use Printers</h5>
+                                    <p>In Rehub there are posibilities to remotly control the printers</p>
                                 </div>
                             </div>
                             <div class="carousel-item">
@@ -62,8 +55,8 @@
                                     <img src="https://assets.giveto.ucla.edu/2014/05/5_648x400_NALaw-648x400.jpg" class="d-block w-100 carousel-image" alt="Slide 2">
                                 </div>
                                 <div class="carousel-caption d-none d-md-block">
-                                    <h5>Second Slide Label</h5>
-                                    <p>Description for second slide</p>
+                                    <h5>Rehub openspace</h5>
+                                    <p>You can come to lab at any time</p>
                                 </div>
                             </div>
                             <div class="carousel-item">
@@ -71,8 +64,8 @@
                                     <img src="https://s.dou.ua/storage-files/DouProjecktor_920_jivaysh.png" class="d-block w-100 carousel-image" alt="Slide 3">
                                 </div>
                                 <div class="carousel-caption d-none d-md-block">
-                                    <h5>Third Slide Label</h5>
-                                    <p>Description for third slide</p>
+                                    <h5>Rehub community</h5>
+                                    <p>Build your projects here</p>
                                 </div>
                             </div>
                             <!-- Add more carousel items as needed -->
@@ -81,13 +74,32 @@
                 </div>
             </div>
         </div>
+
+
         <!-- Right side for news panel -->
         <div class="col-md-4">
-            <div class="card h-100">
+                <!-- News panel -->
+            <div class="card h-100 mb-4">
                 <div class="card-body">
                     <h5 class="card-title">News Panel</h5>
-                    <div class="overflow-auto" style="max-height: 500px;">
+                    <div class="overflow-auto" style="max-height: 700px;">
                         <!-- Inner cards with fields -->
+                        <div class="card mb-3">
+                            <img src="https://cdn.dribbble.com/users/925716/screenshots/3333720/attachments/722375/night.png?resize=400x300&vertical=center" class="panel-image card-img-top" alt="Image">
+                            <div class="card-body">
+                                <h5 class="card-title">Title on Image</h5>
+                                <p class="card-text">Description of the news.</p>
+                                <p class="card-text"><small class="text-muted">Created on: January 2, 2024</small></p>
+                            </div>
+                        </div>
+                        <div class="card mb-3">
+                            <img src="data:image/jpeg;base64,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" class="panel-image card-img-top" alt="Image">
+                            <div class="card-body">
+                                <h5 class="card-title">Title on Image</h5>
+                                <p class="card-text">Description of the news.</p>
+                                <p class="card-text"><small class="text-muted">Created on: January 2, 2024</small></p>
+                            </div>
+                        </div>
                         <div class="card mb-3">
                             <img src="https://cdn.dribbble.com/users/925716/screenshots/3333720/attachments/722375/night.png?resize=400x300&vertical=center" class="panel-image card-img-top" alt="Image">
                             <div class="card-body">
@@ -101,13 +113,34 @@
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Text for laboratory info -->
-    <div class="row mt-4">
-        <div class="col-md-12">
-            <p>Here you can add information about the laboratory...</p>
+        
+            <div class="col-12 col-md-4 offset-md-8">
+                <div class="additional-info">
+                    <div class="admin-status mb-2">
+                        <span class="label">Admin Status:</span>
+                        {% if admin_is_here %}
+                        <span class="status-dot bg-success"></span> <span class="text-success">Online</span>
+                        {% else %}
+                        <span class="status-dot bg-danger"></span> <span class="text-danger">Offline</span>
+                        {% endif %}
+                    </div>
+                    <div class="persons-counter mb-2">
+                        <span class="label">Persons in Lab:</span> <span class="count">15</span>
+                    </div>
+                    <div class="welcome-message">
+                        <span class="label">Welcome Message:</span>
+                        <p class="message">Welcome to Rehub Laboratory! Let's innovate together.</p>
+                    </div>
+                </div>
+            </div>
+        <!-- Text for laboratory info -->
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <p>Here you can add information about the laboratory ere you can add information about the laboratory ere you can add information about the laboratory ere you can add information about the laboratory...</p>
+            </div>
         </div>
     </div>
+    
 </div>
 
 <!-- JavaScript for carousel -->
@@ -138,6 +171,36 @@
         height: 100%;
         background-color: rgba(0, 0, 0, 0.7); /* Adjust the opacity as needed */
     }
+
+    .additional-info {
+        background: #fff; /* Change as needed */
+        border-radius: 4px;
+        padding: 15px;
+        margin-top: 20px; /* Space between news panel and this section */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for styling */
+    }
+
+    .additional-info .label {
+        font-weight: bold;
+    }
+
+    .status-dot {
+        height: 10px;
+        width: 10px;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 5px;
+    }
+
+    .additional-info .count {
+        font-weight: bold;
+        color: #007bff;
+    }
+
+    .additional-info .message {
+        margin-top: 5px;
+    }
+
 </style>
 
 {% endblock %}
