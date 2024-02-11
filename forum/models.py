@@ -25,9 +25,9 @@ class Post(models.Model):
     updated_time = models.DateField(auto_now=True)
     is_published  = models.BooleanField()
     photo = models.ImageField(upload_to = 'photos/%Y/%m/%d/')
-    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,related_name='created_posts')
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,related_name='created_posts',null=True)
     users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='user_projects')
-    topic =  models.ForeignKey(Topic, on_delete=models.CASCADE)
+    topic =  models.ForeignKey(Topic, on_delete=models.CASCADE,null=True)
     
     def __str__(self):
         return f"Post by {self.created_by.username} in {self.topic.title}"

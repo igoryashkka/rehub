@@ -1,0 +1,69 @@
+{% extends 'forum/base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Add Project</h5>
+                </div>
+                <div class="card-body">
+
+                    <form action="{% url 'addproject' %}" method="post" class="form" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <!-- Display form errors, if any -->
+                        {% if form.errors %}
+                            <div class="alert alert-danger" role="alert">
+                                <strong>Error!</strong> Please correct the following errors.
+                                <ul>
+                                    {% for error in form.errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+
+                        <div class="form-group">
+                            <label class="form-label" for="{{ form.slug.id_for_label }}">{{ form.slug.label }}:</label>
+                            {{ form.slug }}
+                            <div class="form-error">{{ form.slug.errors }}</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="{{ form.title.id_for_label }}">{{ form.title.label }}:</label>
+                            {{ form.title }}
+                            <div class="form-error">{{ form.title.errors }}</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="{{ form.description.id_for_label }}">{{ form.description.label }}:</label>
+                            {{ form.description }}
+                            <div class="form-error">{{ form.description.errors }}</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="{{ form.description.id_for_label }}">{{ form.photo.label }}:</label>
+                            {{ form.photo }}
+                            <div class="form-error">{{ form.description.errors }}</div>
+                        </div>
+                        
+                        
+                       
+
+                        <!-- Add more form fields as needed -->
+
+                        <button type="submit" class="btn btn-primary">Add</button>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

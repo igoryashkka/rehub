@@ -11,4 +11,5 @@ urlpatterns = [
     path('login/',LoginUser.as_view(),name = 'login'),
     path('logout/',logout_user,name = 'logout'),
     path('about/',about,name = 'about'),
+    path('addproject/',AddPage.as_view(),name='addproject'),
 ]

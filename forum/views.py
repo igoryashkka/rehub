@@ -13,7 +13,7 @@ from django.views import View
 from .forms import CustomUserCreationForm
 from django.db.models import Prefetch
 from django.views.generic.detail import DetailView
-
+from forum.forms import *
 
 from django.contrib.auth import authenticate, logout,login
 
@@ -108,6 +108,12 @@ class ShowProject(DetailView):
     model = Post
     template_name = 'forum/project.html'
     context_object_name = 'project_data'
+
+class AddPage(CreateView):
+    form_class = AddProjectForm
+    template_name = 'forum/addproject.html'
+    login_url = '/admin/'
+
 
 def logout_user(request):
     logout(request)
