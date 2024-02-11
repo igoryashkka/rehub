@@ -1,0 +1,45 @@
+{% extends 'forum/base.html' %}
+
+{% block title %}Projects - Rehub Laboratory{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- My Profile Section -->
+    <div class="row my-3 profile-section">
+        <div class="col-md-3">
+            <!-- Profile Section with boundary -->
+            <div class="profile-boundary bg-pink text-center p-3">
+                <div class="profile-pic-container">
+                    <img src="https://user-images.githubusercontent.com/522079/90506845-e8420580-e122-11ea-82ca-31087fc8486c.png" class="img-fluid" alt="Profile Picture">
+                </div>
+                <div class="profile-text">
+                    <p>Jane Doe</p>
+                    <p>Research Scientist</p>
+                    <p>Specializing in Biotechnology</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Projects Section -->
+        <div class="col-md-9">
+            <div class="row projects-section">
+                <!-- Dynamically generated project cards -->
+                {% for i in projects %}
+                <div class="col-md-6 my-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Project {{ i }}</h5>
+                            <p>Details of Project {{ i }}: Exploring advanced concepts in a related field. This project focuses on innovative approaches and groundbreaking research.</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <!-- Button to add more projects -->
+            <div class="text-right my-2">
+                <button class="btn btn-outline-success btn-sm">Add more projects as needed</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
