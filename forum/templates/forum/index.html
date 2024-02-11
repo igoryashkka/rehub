@@ -1,0 +1,143 @@
+{% extends 'forum/base.html' %}
+
+{% block title %}Rehub Laboratory - Home{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Left side for posts -->
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Post Title 1</h5>
+                            <p class="card-text">Description of the first post.</p>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between align-items-center">
+                            <button class="btn btn-sm btn-primary">Join</button>
+                            <p class="card-text text-muted">Active Title</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Post Title 2</h5>
+                            <p class="card-text">Description of the second post.</p>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between align-items-center">
+                            <button class="btn btn-sm btn-primary">Join</button>
+                            <p class="card-text text-muted">Active Title</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Post Title 3</h5>
+                            <p class="card-text">Description of the third post.</p>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between align-items-center">
+                            <button class="btn btn-sm btn-primary">Join</button>
+                            <p class="card-text text-muted">Active Title</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Main carousel -->
+                <div class="col-md-12 mb-4">
+                    <div id="mainCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="carousel-image-container shadow">
+                                    <img src="https://t4.ftcdn.net/jpg/04/49/30/87/360_F_449308752_xkBGspiOsbAADCkET4ihyznpJ8POHmys.jpg" class="d-block w-100 carousel-image" alt="Slide 1">
+                                </div>
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>First Slide Label</h5>
+                                    <p>Description for first slide</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="carousel-image-container shadow">
+                                    <img src="https://assets.giveto.ucla.edu/2014/05/5_648x400_NALaw-648x400.jpg" class="d-block w-100 carousel-image" alt="Slide 2">
+                                </div>
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>Second Slide Label</h5>
+                                    <p>Description for second slide</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="carousel-image-container shadow">
+                                    <img src="https://s.dou.ua/storage-files/DouProjecktor_920_jivaysh.png" class="d-block w-100 carousel-image" alt="Slide 3">
+                                </div>
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>Third Slide Label</h5>
+                                    <p>Description for third slide</p>
+                                </div>
+                            </div>
+                            <!-- Add more carousel items as needed -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Right side for news panel -->
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">News Panel</h5>
+                    <div class="overflow-auto" style="max-height: 500px;">
+                        <!-- Inner cards with fields -->
+                        <div class="card mb-3">
+                            <img src="https://cdn.dribbble.com/users/925716/screenshots/3333720/attachments/722375/night.png?resize=400x300&vertical=center" class="panel-image card-img-top" alt="Image">
+                            <div class="card-body">
+                                <h5 class="card-title">Title on Image</h5>
+                                <p class="card-text">Description of the news.</p>
+                                <p class="card-text"><small class="text-muted">Created on: January 2, 2024</small></p>
+                            </div>
+                        </div>
+                        <!-- Repeat this structure for each news item -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Text for laboratory info -->
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <p>Here you can add information about the laboratory...</p>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript for carousel -->
+<script>
+    var mainCarousel = new bootstrap.Carousel(document.getElementById('mainCarousel'), {
+        interval: 6000, // Set the interval for sliding
+        pause: 'hover', // Pause on mouse hover
+        wrap: true // Enable wrap-around mode
+    });
+</script>
+
+<style>
+    .carousel-image {
+        height: 500px; /* Adjust the height as needed */
+        object-fit: cover; /* Ensures the image covers the entire container */
+    }
+    .panel-image {
+        height: 200px; /* Adjust the height as needed */
+         /*    object-fit: cover;   - Ensures the image covers the entire container */
+    }
+
+    .carousel-image-container::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7); /* Adjust the opacity as needed */
+    }
+</style>
+
+{% endblock %}
