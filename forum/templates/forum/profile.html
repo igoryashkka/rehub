@@ -14,15 +14,16 @@
                     <div class="col-md-4">
                         <img src="{{current_photo.url}}" class="card-img" alt="John Doe">
                         <div class="card-body">
-                            <p class="card-text"><strong>Grade:</strong> Senior</p>
-                            <p class="card-text"><strong>Year:</strong> 2024</p>
+                            <p class="card-text"><strong>Specialization : </strong>{{current_account.specialization}}</p>
+                            <p class="card-text"><strong>Telegram : </strong>{{current_account.telegram}}</p>
+                            <p class="card-text"><strong>course : </strong>{{current_account.course}}</p>
                         </div>
                     </div>
                     <!-- Right Side: Detailed Info -->
                     <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title">{{current_account.username}}</h5>
-                            <p class="card-text">Biography or a brief introduction of the user goes here...</p>
+                            <p class="card-text">{{current_account.description_profile}}</p>
                             <p class="card-text">Last login: {{current_account.last_login}}</p>
                             <p class="card-text">Email: {{current_account.email}}</p>
                             <!-- Additional user-specific details here -->
@@ -33,7 +34,7 @@
 
             <!-- Projects Section -->
             <div class="projects-section">
-                <h3>Projects Involved</h3>
+                <h3>Additional Info</h3>
                 <div class="row">
                     <!-- Loop through each project -->
                     {% for project in user_data.projects %}

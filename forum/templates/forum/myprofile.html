@@ -1,8 +1,37 @@
+
 {% extends 'forum/base.html' %}
 
 {% block title %}Profile - Rehub Laboratory{% endblock %}
 
 {% block content %}
+<style>
+    .profile-photo-container {
+        display: flex; /* Added to use flexbox for centering */
+        align-items: center; /* Centers items vertically in the container */
+        justify-content: center; /* Centers items horizontally in the container */
+        height: 100%; /* Make the container full height */
+    }
+    .profile-photo {
+        width: 70%;
+        border-radius: 50%; /* Makes the image circular */
+    }
+    .card-body {
+        border: 1px solid #ddd; /* Border for the info section */
+        border-radius: 5px; /* Rounded corners for the info section */
+        padding: 20px;
+        margin: 10px;
+        display: flex; /* Use flexbox to align text */
+        flex-direction: column; /* Stack flex items vertically */
+        justify-content: center; /* Center text vertically */
+    }
+    /* Left Side: Photo and Basic Info */
+    .col-md-4 {
+        border-right: 1px solid #ddd; /* Add a right border for the divider */
+        display: flex; /* Use flexbox to make the left side a flex container */
+        flex-direction: column; /* Stack children vertically */
+        justify-content: space-between; /* Distribute space evenly */
+    }
+</style>
 <div class="container-fluid">
     <!-- Profile Section -->
     <div class="row my-3 profile-section">
@@ -12,36 +41,38 @@
                 <div class="row no-gutters">
                     <!-- Left Side: Photo and Basic Info -->
                     <div class="col-md-4">
-                        <img src="{{current_account.photo.url}}" class="card-img" alt="John Doe">
+                        <div class="profile-photo-container">
+                            <img src="{{current_account.photo.url}}" class="profile-photo" alt="John Doe">
+                        </div>
                         <div class="card-body">
-                            <p class="card-text"><strong>Grade:</strong> Senior</p>
-                            <p class="card-text"><strong>Year:</strong> 2024</p>
+                            <p class="card-text"><strong>Specialization : </strong>{{current_account.specialization}}</p>
+                            <p class="card-text"><strong>Telegram : </strong>{{current_account.telegram}}</p>
+                            <p class="card-text"><strong>course : </strong>{{current_account.course}}</p>
                         </div>
                     </div>
                     <!-- Right Side: Detailed Info -->
                     <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title">{{current_account.username}}</h5>
-                            <p class="card-text">Biography or a brief introduction of the user goes here...</p>
+                            <p class="card-text">{{current_account.description_profile}}</p>
                             <!-- Additional user-specific details here -->
                         </div>
                     </div>
                 </div>
             </div>
-
             <!-- Projects Section -->
             <div class="projects-section">
                 <h3>Projects Involved</h3>
                 <div class="row">
                     <!-- Loop through each project -->
-                    {% for project in user_data.projects %}
+                    {% for project in user_projects %}
                     <div class="col-md-4">
                         <div class="card mb-4">
-                            <img src="path/to/project_image.jpg" class="card-img-top" alt="Project Title">
+                            <img src="{{project.photo.url}}" class="card-img-top" alt="Project Title">
                             <div class="card-body">
-                                <h5 class="card-title">Project Title</h5>
-                                <p class="card-text">Short description of the project...</p>
-                                <a href="/projects/{{ project.id }}/" class="btn btn-primary">View Project</a>
+                                <h5 class="card-title">{{project.title}}</h5>
+                                <p class="card-text">{{project.description}}</p>
+                                <a href="{{project.get_absolute_url}}" class="btn btn-primary">View Project</a>
                                 
                                 <!-- Latest Activities Block -->
                                 <div class="latest-activities mt-3">
@@ -59,7 +90,6 @@
                     {% endfor %}
                 </div>
             </div>
-        </div>
     </div>
 </div>
 {% endblock %}

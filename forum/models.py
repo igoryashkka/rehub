@@ -39,6 +39,10 @@ class Post(models.Model):
 class CustomUser(AbstractUser):
     slug = models.SlugField(max_length = 255, unique = True,db_index = True,verbose_name = 'URL',null=True)
     photo = models.ImageField(upload_to='user_photos/', null=True, blank=True)
+    specialization = models.CharField(max_length=100,null=True)
+    telegram = models.CharField(max_length=100,null=True)
+    course = models.IntegerField(null = True)
+    description_profile = models.TextField(null=True)
     #project = models.ForeignKey(Post, on_delete=models.CASCADE)
 
     def get_absolute_url(self):
