@@ -1,0 +1,44 @@
+{% extends 'forum/base.html' %}
+{% load custom_filters %}
+
+{% block title %}Users - Rehub Laboratory{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Filters and Buttons Section -->
+    <div class="row my-3">
+        <div class="col-12">
+            <!-- Add buttons and filters here -->
+            <div class="d-flex justify-content-between">
+                <div>
+                    <!-- Example filters -->
+                    <button class="btn btn-primary">Filter A</button>
+                    <button class="btn btn-secondary">Filter B</button>
+                </div>
+                <div>
+                    <!-- Example buttons -->
+                    <button class="btn btn-success">Add User</button>
+                    <button class="btn btn-info">Export Users</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Users Section -->
+    <div class="row users-section">
+        {% for user in users %}
+        <div class="col-md-4 my-2">
+            <div class="card">
+                <div class="card-body text-center">
+                    <img src="{{ user.photo.url }}" alt="{{ user.username }}'s photo" class="img-fluid rounded-circle mb-2" style="width: 100px; height: 100px;">
+                    <h5 class="card-title">{{ user.username }}</h5>
+                    <p class="card-text">Specialization: {{ user.specialization }}</p>
+                    <p class="card-text">Joined: {{ user.date_joined }}</p>
+                    <a href="{{ user.get_absolute_url }}" class="btn btn-primary">View Profile</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

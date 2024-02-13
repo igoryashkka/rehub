@@ -12,7 +12,7 @@
                 <div class="row no-gutters">
                     <!-- Left Side: Photo and Basic Info -->
                     <div class="col-md-4">
-                        <img src="path/to/user_photo.jpg" class="card-img" alt="John Doe">
+                        <img src="{{current_account.photo.url}}" class="card-img" alt="John Doe">
                         <div class="card-body">
                             <p class="card-text"><strong>Grade:</strong> Senior</p>
                             <p class="card-text"><strong>Year:</strong> 2024</p>
@@ -21,7 +21,7 @@
                     <!-- Right Side: Detailed Info -->
                     <div class="col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title">John Doe</h5>
+                            <h5 class="card-title">{{current_account.username}}</h5>
                             <p class="card-text">Biography or a brief introduction of the user goes here...</p>
                             <!-- Additional user-specific details here -->
                         </div>

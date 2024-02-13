@@ -35,7 +35,7 @@
                             <div class="d-flex align-items-center">
                                 <div class="user-count mr-2">+{{ unique_users|get:post.title }}</div>
                                 {% for user in users %}
-                                    <img src="{{ user.photo.url }}" alt="{{ user.username }}'s photo" class="user-image">
+                                <a href="{{user.get_absolute_url}}"><img src="{{ user.photo.url }}" alt="{{ user.username }}'s photo" class="user-image"></a>
                                 {% endfor %}
                             </div>
                             <a href="{{ post.get_absolute_url }}" class="btn btn-primary float-right">Go to Link</a>

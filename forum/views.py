@@ -54,6 +54,26 @@ class Home(ListView):
 
         return context
     
+
+class Users(ListView):
+    model = CustomUser
+    template_name = 'forum/users.html'
+    context_object_name = 'data_users'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        current_user_id = self.request.user.id
+        current_account = CustomUser.objects.get(pk=current_user_id)
+
+        context['current_account'] = current_account
+        context['current_account_photo'] = current_account.photo
+
+        context['users'] = CustomUser.objects.all()
+        
+
+        return context
+
 class Projects(ListView):
     model = Post 
     template_name = 'forum/projects.html'
@@ -163,15 +183,19 @@ class MyProfile(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
+        current_user_id = self.request.user.id
         for e in CustomUser.objects.all():
             print(e.slug)
 
+        current_account = CustomUser.objects.get(pk=current_user_id)
 
-        current_user_id = self.request.user.id
+        context['current_account'] = current_account
+        context['current_account_photo'] = current_account.photo
+
+        print(current_account.__dict__)
 
 
-        print(f"id : {current_user_id}")
+        print(f"photo - : {current_account.photo}")
 
         return context
 
@@ -191,6 +215,8 @@ class ShowProfile(DetailView):
             current_account = CustomUser.objects.get(username=current_user_username)
             context['current_photo'] = current_account.photo
             context['username'] = current_account.username
+            context['current_account'] = current_account
+            context['current_account_photo'] = current_account.photo
 
 
             # Printing current account photo URL for debugging
