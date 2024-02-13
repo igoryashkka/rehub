@@ -32,6 +32,7 @@ class Home(ListView):
         posts_with_users = Post.objects.prefetch_related(
             Prefetch('users', queryset=CustomUser.objects.all())
         )
+
         context['posts_with_users'] = [(post, post.users.all()) for post in posts_with_users]
 
         current_user_id = self.request.user.id
@@ -40,15 +41,16 @@ class Home(ListView):
             context['current_account_photo'] = current_account.photo
 
             # Printing current account photo URL for debugging
-            print(f"Current account photo URL: {current_account.photo.url if current_account.photo else 'No photo'}")
+            #print(f"Current account photo URL: {current_account.photo.url if current_account.photo else 'No photo'}")
         except CustomUser.DoesNotExist:
             context['current_account_photo'] = None
-            print("Current user does not exist")
+            #print("Current user does not exist")
 
         # Optimize the user projects query
         users = CustomUser.objects.prefetch_related('user_projects').all()
         for user in users:
-            print(f"Projects for user {user.username}: {[project.title for project in user.user_projects.all()]}")
+            #print(f"Projects for user {user.username}: {[project.title for project in user.user_projects.all()]}")
+            pass
 
         return context
     
@@ -64,7 +66,27 @@ class Projects(ListView):
         posts_with_users = Post.objects.prefetch_related(
             Prefetch('users', queryset=CustomUser.objects.all())
         )
+
         context['posts_with_users'] = [(post, post.users.all()) for post in posts_with_users]
+
+        unique_users = dict()
+        
+        posts = Post.objects.all()
+        for post in posts:
+            for user in post.users.all():
+                if len(post.users.all()) > 3:
+                    unique_users[post.title] = len(post.users.all()) - 3
+                else:
+                    unique_users[post.title] = len(post.users.all())
+
+
+                #print(f"uSER:{user}")
+                #print()
+
+        print(unique_users)
+        context['unique_users'] = unique_users
+        
+        
 
         current_user_id = self.request.user.id
 
@@ -109,10 +131,84 @@ class ShowProject(DetailView):
     template_name = 'forum/project.html'
     context_object_name = 'project_data'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        
+        posts_with_users = Post.objects.prefetch_related(
+            Prefetch('users', queryset=CustomUser.objects.all())
+        )
+        
+        context['posts_with_users'] = [(post, post.users.all()) for post in posts_with_users]
+
+        current_user_id = self.request.user.id
+
+        try:
+            current_account = CustomUser.objects.get(pk=current_user_id)
+            context['current_account_photo'] = current_account.photo
+
+            # Printing current account photo URL for debugging
+            print(f"Current account photo URL: {current_account.photo.url if current_account.photo else 'No photo'}")
+        except CustomUser.DoesNotExist:
+            context['current_account_photo'] = None
+            print("Current user does not exist")
+        
+
+        return context
+
+class MyProfile(ListView):
+    model = CustomUser
+    template_name ='forum/myprofile.html'
+    context_object_name = 'data_user'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        for e in CustomUser.objects.all():
+            print(e.slug)
+
+
+        current_user_id = self.request.user.id
+
+
+        print(f"id : {current_user_id}")
+
+        return context
+
+class ShowProfile(DetailView):
+    model = CustomUser
+    template_name = 'forum/profile.html'
+    context_object_name = 'profile_data'
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        current_user_username = self.kwargs.get('slug', None)
+
+
+        try:
+            current_account = CustomUser.objects.get(username=current_user_username)
+            context['current_photo'] = current_account.photo
+            context['username'] = current_account.username
+
+
+            # Printing current account photo URL for debugging
+            print(f"Current account photo URL: {current_account.photo.url if current_account.photo else 'No photo'}")
+        except CustomUser.DoesNotExist:
+            context['current_photo'] = None
+            print("Current user does not exist")
+
+        return context
+
+   
+
 class AddPage(CreateView):
     form_class = AddProjectForm
     template_name = 'forum/addproject.html'
     login_url = '/admin/'
+
+   
 
 
 def logout_user(request):

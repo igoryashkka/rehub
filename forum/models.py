@@ -30,12 +30,17 @@ class Post(models.Model):
     topic =  models.ForeignKey(Topic, on_delete=models.CASCADE,null=True)
     
     def __str__(self):
-        return f"Post by {self.created_by.username} in {self.topic.title}"
+        return f"{self.title}"
     
     def get_absolute_url(self):
         return reverse('project',kwargs={'slug':self.slug})
 
 
 class CustomUser(AbstractUser):
+    slug = models.SlugField(max_length = 255, unique = True,db_index = True,verbose_name = 'URL',null=True)
     photo = models.ImageField(upload_to='user_photos/', null=True, blank=True)
     #project = models.ForeignKey(Post, on_delete=models.CASCADE)
+
+    def get_absolute_url(self):
+        return reverse('profile',kwargs={'slug':self.slug})
+

@@ -12,6 +12,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link type="text/css" href="{% static 'forum/css/style.css' %}" rel="stylesheet"/>
+    <link type="text/css"  href="{% static 'forum/css/projects.css' %}" rel="stylesheet">
+
     {% load bootstrap5 %}
     {% bootstrap_css %}
     {% bootstrap_javascript %}
@@ -45,7 +47,7 @@
       {% endif %}
       {% if request.user.is_authenticated %}
       <li class="nav-item">
-        <a class="nav-link" href="/profile/">{{user.username}}</a>
+        <a class="nav-link" href="/myprofile/">{{user.username}}</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/logout/">Logout</a>
@@ -60,7 +62,7 @@
       {% endif %}
       {% if request.user.is_authenticated %}
       <li class="nav-item">
-        <img src="{{current_account_photo.url}}" alt="{{ user.username }}'s photo" style="width:40px; height:40px; border-radius: 50%; border: 2px solid white;">
+        <a href="/myprofile/"><img src="{{current_account_photo.url}}" alt="{{ user.username }}'s photo" style="width:40px; height:40px; border-radius: 50%; border: 2px solid white;"></a>
       </li>
       {% endif %}
     </ul>

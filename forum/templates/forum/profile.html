@@ -1,0 +1,65 @@
+{% extends 'forum/base.html' %}
+
+{% block title %}Profile - Rehub Laboratory{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Profile Section -->
+    <div class="row my-3 profile-section">
+        <div class="col-md-12">
+            <!-- Profile Card -->
+            <div class="card mb-3">
+                <div class="row no-gutters">
+                    <!-- Left Side: Photo and Basic Info -->
+                    <div class="col-md-4">
+                        <img src="{{current_photo.url}}" class="card-img" alt="John Doe">
+                        <div class="card-body">
+                            <p class="card-text"><strong>Grade:</strong> Senior</p>
+                            <p class="card-text"><strong>Year:</strong> 2024</p>
+                        </div>
+                    </div>
+                    <!-- Right Side: Detailed Info -->
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{username}}</h5>
+                            <p class="card-text">Biography or a brief introduction of the user goes here...</p>
+                            <!-- Additional user-specific details here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Projects Section -->
+            <div class="projects-section">
+                <h3>Projects Involved</h3>
+                <div class="row">
+                    <!-- Loop through each project -->
+                    {% for project in user_data.projects %}
+                    <div class="col-md-4">
+                        <div class="card mb-4">
+                            <img src="path/to/project_image.jpg" class="card-img-top" alt="Project Title">
+                            <div class="card-body">
+                                <h5 class="card-title">Project Title</h5>
+                                <p class="card-text">Short description of the project...</p>
+                                <a href="/projects/{{ project.id }}/" class="btn btn-primary">View Project</a>
+                                
+                                <!-- Latest Activities Block -->
+                                <div class="latest-activities mt-3">
+                                    <h6>Latest Activities:</h6>
+                                    <ul>
+                                        <!-- Loop through latest activities -->
+                                        {% for activity in project.latest_activities %}
+                                        <li>{{ activity.description }} - <small>{{ activity.date }}</small></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

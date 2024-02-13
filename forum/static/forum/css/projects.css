@@ -1,0 +1,22 @@
+.right-aligned-link {
+    float: right;
+}
+
+/* .user-count {
+    margin-bottom: 10px;  
+} */
+.user-count {
+    background-color: #007bff;  /* Bootstrap primary color */
+    color: white;
+    padding: 5px 10px;
+    border-radius: 50%;
+    font-weight: bold;
+}
+
+.user-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-left: -10px;
+    border: 2px solid white;
+}

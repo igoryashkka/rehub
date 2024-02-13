@@ -25,7 +25,7 @@
                                 {% for user in users %}
                                 {% if forloop.counter <= 3 %}
                                 <!-- <img src="{{user.photo.url}}" class="img-fluid" alt="Profile Picture"> -->
-                                <img src="{{ user.photo.url }}" alt="{{ user.username }}'s photo" style="width:40px; height:40px; border-radius: 50%; margin-left: -10px; border: 2px solid white;">
+                                <a href="{{user.get_absolute_url}}"><img src="{{ user.photo.url }}" alt="{{ user.username }}'s photo" style="width:40px; height:40px; border-radius: 50%; margin-left: -10px; border: 2px solid white;"></a>
                                 {%endif%}
                                 {% endfor %}
                             </div>
