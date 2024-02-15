@@ -65,7 +65,7 @@
       {% endif %}
       {% if request.user.is_authenticated %}
       <li class="nav-item">
-        <a href="/myprofile/"><img src="{{current_account_photo.url}}" alt="{{ user.username }}'s photo" style="width:40px; height:40px; border-radius: 50%; border: 2px solid white;"></a>
+        <a href="/myprofile/"><img src="{{current_photo.url}}" alt="{{ user.username }}'s photo" style="width:40px; height:40px; border-radius: 50%; border: 2px solid white;"></a>
       </li>
       {% endif %}
     </ul>
