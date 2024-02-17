@@ -24,8 +24,9 @@ class Home(UserMixin,ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['posts_with_users'] = self.get_posts_with_users()       
-        context.update(self.get_user_details(self.request.user.id))
+        context['posts_with_users'] = self.get_posts_with_users()
+        if self.request.user.id != None:
+            context.update(self.get_user_details_by_id(self.request.user.id))
         return context
 
 
@@ -39,7 +40,8 @@ class Projects(UserMixin,ListView):
         context['posts_with_users'] = self.get_posts_with_users()
         unique_users = {post.title: len(post.users.all()) for post in Post.objects.all()}
         context['unique_users'] = unique_users
-        context.update(self.get_user_details(self.request.user.id))
+        if self.request.user.id != None:
+            context.update(self.get_user_details_by_id(self.request.user.id))
         return context
 
 
@@ -50,8 +52,9 @@ class ShowProject(UserMixin,DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['posts_with_users'] = self.get_posts_with_users()   
-        context.update(self.get_user_details(self.request.user.id))
+        context['posts_with_users'] = self.get_posts_with_users() 
+        if self.request.user.id != None:  
+            context.update(self.get_user_details_by_id(self.request.user.id))
         return context
 
 
@@ -62,7 +65,8 @@ class Users(UserMixin,ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.update(self.get_user_details(self.request.user.id))
+        if self.request.user.id != None:
+            context.update(self.get_user_details_by_id(self.request.user.id))
         context['users'] = CustomUser.objects.all()        
 
         return context
@@ -75,7 +79,8 @@ class MyProfile(UserMixin,ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.update(self.get_user_details(self.request.user.id))
+        if self.request.user.id != None:
+            context.update(self.get_user_details_by_id(self.request.user.id))
         return context
 
 
@@ -85,7 +90,7 @@ class ShowProfile(UserMixin,DetailView):
     context_object_name = 'profile_data'
        
     def get(self, request, *args, **kwargs):
-        user_details = self.get_user_details(self.kwargs.get('slug'))
+        user_details = self.get_user_details_by_slug(self.kwargs.get('slug'))
         requested_user = user_details['current_account']
 
         if requested_user == request.user:
@@ -96,9 +101,11 @@ class ShowProfile(UserMixin,DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['current_photo_profile'] = self.get_user_details(self.kwargs.get('slug', None))['current_photo']
-        context.update(self.get_user_details(self.kwargs.get('slug', None)))
-        context['current_photo'] = self.get_user_details(self.request.user.id)['current_photo']
+        context['current_photo_profile'] = self.get_user_details_by_slug(self.kwargs.get('slug', None))['current_photo']
+        context.update(self.get_user_details_by_slug(self.kwargs.get('slug', None)))
+
+        if self.request.user.id != None:
+            context['current_photo'] = self.get_user_details_by_id(self.request.user.id)['current_photo']
         return context
 
 
