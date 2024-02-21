@@ -5,12 +5,10 @@ from django.views.generic.list import ListView
 from forum.models import Post,CustomUser
 from django.contrib.auth.models import User
 from django.views.generic.edit import CreateView
-from forum.forms import CustomUserCreationForm
 from django.urls import reverse_lazy
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import *
 from django.contrib.auth.views import LoginView
 from django.views import View
-from .forms import CustomUserCreationForm
 from django.db.models import Prefetch
 from django.views.generic.detail import DetailView
 from forum.forms import *
@@ -53,10 +51,7 @@ class Projects(UserMixin,ListView):
         context['posts_with_users'] = self.get_posts_with_users()
         unique_users = {post.title: len(post.users.all()) for post in Post.objects.all()}
         context['unique_users'] = unique_users
-        context['topics'] = Topic.objects.all()  
-        #context['color'] = 'badge-primary'
-        
-        
+        context['topics'] = Topic.objects.all() 
         if self.request.user.id != None:
             context.update(self.get_user_details_by_id(self.request.user.id))
         return context
@@ -135,6 +130,9 @@ class RegisterView(View):
         form = CustomUserCreationForm(request.POST, request.FILES)
         
         if form.is_valid():
+            user = form.save(commit=False)
+            user.is_staff = True
+            
             user = form.save()
             login(request, user)
             return redirect('home')
@@ -150,10 +148,17 @@ class LoginUser(LoginView):
         return reverse_lazy('home')
 
     
-class AddPage(CreateView):
+class AddPage(UserMixin,CreateView):
     form_class = AddProjectForm
     template_name = 'forum/addproject.html'
     login_url = '/admin/'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.user.id != None:
+            context['current_photo'] = self.get_user_details_by_id(self.request.user.id)['current_photo']
+        return context
+
 
 
 def logout_user(request):

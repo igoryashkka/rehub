@@ -26,13 +26,6 @@
                                 </ul>
                             </div>
                         {% endif %}
-
-                        <div class="form-group">
-                            <label class="form-label" for="{{ form.slug.id_for_label }}">{{ form.slug.label }}:</label>
-                            {{ form.slug }}
-                            <div class="form-error">{{ form.slug.errors }}</div>
-                        </div>
-
                         <div class="form-group">
                             <label class="form-label" for="{{ form.title.id_for_label }}">{{ form.title.label }}:</label>
                             {{ form.title }}
@@ -50,12 +43,12 @@
                             {{ form.photo }}
                             <div class="form-error">{{ form.description.errors }}</div>
                         </div>
-                        
-                        
-                       
 
-                        <!-- Add more form fields as needed -->
-
+                        <div class="form-group">
+                            <label class="form-label" for="{{ form.topic.id_for_label }}">{{ form.topic.label }}:</label>
+                            {{ form.topic }}
+                            <div class="form-error">{{ form.topic.errors }}</div>
+                        </div>                
                         <button type="submit" class="btn btn-primary">Add</button>
                     </form>
 

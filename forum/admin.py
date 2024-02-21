@@ -14,6 +14,10 @@ admin.site.register(models.Post)
 class CustomUserAdmin(admin.ModelAdmin):
     lmodel = models.CustomUser
     list_display = ['username', 'email', 'photo', 'is_staff', ]
-    #filter_horizontal = ('users',)  # This provides a user-friendly interface for M2M field
+    #filter_horizontal = ('users',) 
+
+
+class PostAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug':('name',)}
 
 admin.site.register(models.CustomUser, CustomUserAdmin)
