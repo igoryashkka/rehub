@@ -1,62 +1,59 @@
 {% extends 'forum/base.html' %}
 
 {% block content %}
+<style>
+select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
 
-<div class="container mt-4">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+</style>
 
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title">Add Project</h5>
-                </div>
-                <div class="card-body">
-
-                    <form action="{% url 'addproject' %}" method="post" class="form" enctype="multipart/form-data">
-                        {% csrf_token %}
-
-                        <!-- Display form errors, if any -->
-                        {% if form.errors %}
-                            <div class="alert alert-danger" role="alert">
-                                <strong>Error!</strong> Please correct the following errors.
-                                <ul>
-                                    {% for error in form.errors %}
-                                        <li>{{ error }}</li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                        {% endif %}
-                        <div class="form-group">
-                            <label class="form-label" for="{{ form.title.id_for_label }}">{{ form.title.label }}:</label>
-                            {{ form.title }}
-                            <div class="form-error">{{ form.title.errors }}</div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="{{ form.description.id_for_label }}">{{ form.description.label }}:</label>
-                            {{ form.description }}
-                            <div class="form-error">{{ form.description.errors }}</div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="{{ form.description.id_for_label }}">{{ form.photo.label }}:</label>
-                            {{ form.photo }}
-                            <div class="form-error">{{ form.description.errors }}</div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="{{ form.topic.id_for_label }}">{{ form.topic.label }}:</label>
-                            {{ form.topic }}
-                            <div class="form-error">{{ form.topic.errors }}</div>
-                        </div>                
-                        <button type="submit" class="btn btn-primary">Add</button>
-                    </form>
-
-                </div>
+<div class="container">
+    <h2>You can initiate new project</h2>
+    <form action="{% url 'addproject' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% if form.errors %}
+            <div class="alert alert-danger" role="alert">
+                <strong>Error!</strong> Please correct the following errors.
+                <ul>
+                    {% for error in form.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
             </div>
-
+        {% endif %}
+        
+        <div class="form-group">
+            <label class="form-label" for="{{ form.title.id_for_label }}">Title:</label>
+            <input type="text" id="{{ form.title.id_for_label }}" name="{{ form.title.name }}" placeholder="Enter project title" class="form-control" required>
+            <div class="form-error">{{ form.title.errors }}</div>
         </div>
-    </div>
+
+        <div class="form-group">
+            <label class="form-label" for="{{ form.description.id_for_label }}">Description:</label>
+            <textarea id="{{ form.description.id_for_label }}" name="{{ form.description.name }}" placeholder="Describe your project, here can be the goal of the project" class="form-control" required></textarea>
+            <div class="form-error">{{ form.description.errors }}</div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label" for="{{ form.photo.id_for_label }}">Photo:</label>
+            <input type="file" id="{{ form.photo.id_for_label }}" name="{{ form.photo.name }}" class="form-control">
+            <div class="form-error">{{ form.photo.errors }}</div>
+        </div>
+
+        <div>
+            <label for="topic">Topic:</label>
+            {{ form.topic }}
+            <div class="form-error"></div> 
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add</button>
+    </form>
 </div>
 
 {% endblock %}

@@ -132,7 +132,7 @@ class RegisterView(View):
         if form.is_valid():
             user = form.save(commit=False)
             user.is_staff = True
-            
+
             user = form.save()
             login(request, user)
             return redirect('home')
@@ -155,6 +155,8 @@ class AddPage(UserMixin,CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['topic_options'] = Topic.objects.all()
+        print(f'Topic.objects.all() - {Topic.objects.all()}')
         if self.request.user.id != None:
             context['current_photo'] = self.get_user_details_by_id(self.request.user.id)['current_photo']
         return context
