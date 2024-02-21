@@ -38,7 +38,7 @@ class Post(models.Model):
 
 
 class CustomUser(AbstractUser):
-    slug = models.SlugField(max_length = 255, unique = True,db_index = True,verbose_name = 'URL',null=True)
+    slug = AutoSlugField(populate_from='username',null= True)
     photo = models.ImageField(upload_to='user_photos/', null=True, blank=True)
     specialization = models.CharField(max_length=100,null=True)
     telegram = models.CharField(max_length=100,null=True)
