@@ -20,5 +20,6 @@ class UserMixin:
         return self._get_user_details(user)
     
     def get_posts_with_users(self):
-        return [(post, post.users.all()) for post in Post.objects.all()]
+        print(self.get_queryset())
+        return [(post, post.users.all(),post.topic.color if post.topic else None) for post in self.get_queryset()]
 

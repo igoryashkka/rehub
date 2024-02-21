@@ -11,7 +11,7 @@
         <div class="col-lg-8">
             <div class="row">
                 <div class="card-container">
-                {% for post, users in posts_with_users %}
+                {% for post, users, color in posts_with_users %}
                 {% if forloop.counter <= 3 %}
                 <div class="col-md-4">
                     <div class="card mb-4 shadow" style="border-radius: 15px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">

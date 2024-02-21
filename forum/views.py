@@ -34,12 +34,29 @@ class Projects(UserMixin,ListView):
     model = Post 
     template_name = 'forum/projects.html'
     context_object_name = 'projects'
+    list_colors = ['badge-primary','badge-secondary','badge-success','badge-danger','badge-warning',' badge-info','badge-dark']
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        topic_filter = self.request.GET.get('topic_filter')
+        if topic_filter:
+            topic = Topic.objects.get(title=topic_filter)
+            topic_id = topic.id
+            print(f"----- {topic_id}")
+            if topic_filter:
+                queryset = queryset.filter(topic=topic_id)
+        return queryset
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['posts_with_users'] = self.get_posts_with_users()
         unique_users = {post.title: len(post.users.all()) for post in Post.objects.all()}
         context['unique_users'] = unique_users
+        context['topics'] = Topic.objects.all()  
+        #context['color'] = 'badge-primary'
+        
+        
         if self.request.user.id != None:
             context.update(self.get_user_details_by_id(self.request.user.id))
         return context

@@ -5,49 +5,85 @@
 
 {% block content %}
 <div class="container-fluid">
-    <!-- My Profile Section -->
-    <div class="row my-3 profile-section">
+    <div class="row my-4 align-items-center">
+        {% if request.user.is_authenticated %}
         <div class="col-md-3">
-            <!-- Profile Section with boundary -->
-            <div class="profile-boundary bg-pink text-center p-3">
-                <div class="profile-pic-container">
-                    <img src="{{current_photo.url}}" class="img-fluid" alt="Profile Picture">
+            <h3 class="text-center text-md-left">My Profile</h3>
+        </div>
+        <div class="col-md-6 text-center">
+            <h2>All Rehub Projects</h2>
+        </div>
+        <div class="col-md-3">
+            <form method="GET" action="" class="form-inline justify-content-end">
+                <select name="topic_filter" class="form-control" onchange="this.form.submit()">
+                    <option value="">Select Topic</option>
+                    {% for topic in topics %}
+                    <option value="{{ topic }}" {% if request.GET.topic_filter == topic %}selected{% endif %}>{{ topic }}</option>
+                    {% endfor %}
+                </select>
+            </form>
+        </div>
+        {% else %}
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2 class="flex-grow-1 text-center">All Rehub Projects</h2>
+                <form method="GET" action="" class="d-flex justify-content-end">
+                    <select name="topic_filter" class="form-control" onchange="this.form.submit()">
+                        <option value="">Select Topic</option>
+                        {% for topic in topics %}
+                        <option value="{{ topic }}" {% if request.GET.topic_filter == topic %}selected{% endif %}>{{ topic }}</option>
+                        {% endfor %}
+                    </select>
+                </form>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    <div class="row">
+        {% if request.user.is_authenticated %}
+        <div class="col-md-3">
+            <div class="profile-boundary bg-light text-center p-3 shadow-sm">
+                <div class="profile-pic-container mb-3">
+                    <img src="{{ current_photo.url }}" class="img-fluid rounded-circle border" alt="Profile Picture">
                 </div>
                 <div class="profile-text">
-                    <p>{{request.user.username}}</p>
-                    <p>{{request.user.date_joined}}</p>
-                    <p>Specializing in Biotechnology</p>
+                    <p><i class="fas fa-user"></i> {{ request.user.username }}</p>
+                    <p><i class="fas fa-paper-plane"></i> tg: {{ request.user.telegram }}</p>
+                    <p><i class="fas fa-flask"></i> {{ request.user.specialization }}</p>
+                    <p><i class="fas fa-book"></i> Course : {{ request.user.course }}</p>
                 </div>
             </div>
         </div>
+        {% endif %}
+
         
-        <!-- Projects Section -->
-        <div class="col-md-9">
+        <div class="{% if request.user.is_authenticated %}col-md-9{% else %}col-md-12{% endif %}">
             <div class="row projects-section">
-                <!-- Dynamically generated project cards -->
-                
-                {% for post, users in posts_with_users %}
+                {% for post, users, color in posts_with_users %}
                 <div class="col-md-6 my-2">
-                    <div class="card">
+                    <div class="card h-100 shadow-sm">
                         <div class="card-body">
-                            <h5 class="card-title">Project "{{ post.title }}"</h5>
-                            <p>Details of Project:  {{ post.description }}</p>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <h5 class="card-title">Project "{{ post.title }}"</h5>
+                                <span class="badge {{color}}">{{ post.topic }}</span>
+                            </div>
+                            <p class="card-text">Details of Project: {{ post.description }}</p>
                             <div class="d-flex align-items-center">
                                 <div class="user-count mr-2">+{{ unique_users|get:post.title }}</div>
                                 {% for user in users %}
-                                <a href="{{user.get_absolute_url}}"><img src="{{ user.photo.url }}" alt="{{ user.username }}'s photo" class="user-image"></a>
+                                <a href="{{user.get_absolute_url}}">
+                                    <img src="{{ user.photo.url }}" alt="{{ user.username }}'s photo" class="user-image rounded-circle border">
+                                </a>
                                 {% endfor %}
                             </div>
-                            <a href="{{ post.get_absolute_url }}" class="btn btn-primary float-right">Go to Link</a>
+                            <a href="{{ post.get_absolute_url }}" class="btn btn-primary mt-3 float-right">Project Details</a>
                         </div>
                     </div>
                 </div>
-            {% endfor %}
-            
+                {% endfor %}
             </div>
-            <!-- Button to add more projects -->
             <div class="text-right my-2">
-                <a href="/addproject/"class="btn btn-outline-success btn-sm">Initiate new project</a>
+                <a href="/addproject/" class="btn btn-outline-success btn-sm">Initiate new project</a>
             </div>
         </div>
     </div>

@@ -6,7 +6,7 @@
     margin-bottom: 10px;  
 } */
 .user-count {
-    background-color: #007bff;  /* Bootstrap primary color */
+    background-color: #007bff;  
     color: white;
     padding: 5px 10px;
     border-radius: 50%;
@@ -19,4 +19,13 @@
     border-radius: 50%;
     margin-left: -10px;
     border: 2px solid white;
+}
+
+.row-block {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-title {
+    display: block;
 }
