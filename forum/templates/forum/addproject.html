@@ -14,7 +14,9 @@ select {
 </style>
 
 <div class="container">
-    <h2>You can initiate new project</h2>
+    <h2 style="color: #4A90E2; font-family: Arial, sans-serif;">You Can Initiate a New Project</h2>
+    <h6 style="color: #333; font-family: Arial, sans-serif;">Please be patient as your projects will not appear immediately on the all projects list.</h6>
+    <h6 style="color: #333; font-family: Arial, sans-serif;">An admin must check them first before publishing.</h6>    
     <form action="{% url 'addproject' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% if form.errors %}
@@ -55,5 +57,4 @@ select {
         <button type="submit" class="btn btn-primary">Add</button>
     </form>
 </div>
-
 {% endblock %}

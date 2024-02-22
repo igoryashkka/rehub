@@ -4,30 +4,48 @@
 
 {% block content %}
 <div class="container-fluid">
-    <!-- Project Section -->
-    <div class="row my-3 project-section">
-        <div class="col-md-12">
-            <!-- Project Details -->
-            <div class="project-details bg-light p-3">
-                <h2>{{ project_data.title }}</h2>
-                <img src="{{project_data.photo.url}}" class="img-fluid" alt="Project Image" style="max-width:100%;">
-                <p class="mt-3">{{ project_data.description }}</p>
-
-                <!-- Additional Project Information -->
-                <div class="additional-info mt-4">
-                    <p><strong>Start Date:</strong> {{ project_data.start_date }}</p>
-                    <p><strong>End Date:</strong> {{ project.end_date }}</p>
-                    <p><strong>Project Lead:</strong> {{ project.lead }}</p>
-                    <p><strong>Team Members:</strong> {{ project.team_members }}</p>
-                    <!-- Add more project-specific details here -->
+  
+    <div class="row my-3 d-flex">
+        
+     
+        <div class="col-lg-8 d-flex">
+            <div class="card mb-3 w-100">
+                <img src="{{ project_data.photo.url }}" class="card-img-top" alt="Project Image">
+                <div class="card-body">
+                    <h2 class="card-title">{{ project_data.title }}</h2>
                 </div>
+            </div>
+        </div>
 
-                <!-- Back to Projects List Button -->
-                <div class="text-right my-2">
-                    <a href="/projects/" class="btn btn-outline-primary btn-sm">Back to Projects</a>
+  
+        <div class="col-lg-4 d-flex flex-column">
+            <div class="card bg-light mb-3 flex-grow-1">
+                <div class="card-body d-flex flex-column">
+                    <h4><strong>Project Details</strong></h4>
+                    <p class="card-text">{{ project_data.description }}</p>
+                    <p><strong>Start Date:</strong> {{ project_data.created_time }}</p>
+                    <p><strong>Project Lead:</strong> {{ project_data.created_by }}</p>
+                    <p><strong>Topic:</strong> {{ project_data.topic }}</p>
+                    <div class="mt-auto">
+                        <a href="/projects/" class="btn btn-outline-primary btn-sm float-right">Back to Projects</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    Last Activities
+                </div>
+                <div class="card-body">
+                    Content for last activities goes here 
+                </div>
+            </div>
+        </div>
+    </div>
+    
 </div>
 {% endblock %}

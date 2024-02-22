@@ -24,7 +24,7 @@ class Post(models.Model):
     description = models.TextField(null=True)
     created_time = models.DateField(auto_now_add=True)
     updated_time = models.DateField(auto_now=True)
-    is_published  = models.BooleanField(null = True)
+    is_published  = models.BooleanField(null = True,default=False)
     photo = models.ImageField(upload_to = 'photos/%Y/%m/%d/')
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,related_name='created_posts',null=True)
     users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='user_projects')
@@ -44,7 +44,7 @@ class CustomUser(AbstractUser):
     telegram = models.CharField(max_length=100,null=True)
     course = models.IntegerField(null = True)
     description_profile = models.TextField(null=True)
-    
+
     def get_absolute_url(self):
         return reverse('profile',kwargs={'slug':self.slug})
 

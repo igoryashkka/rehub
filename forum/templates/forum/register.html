@@ -1,21 +1,86 @@
 {% extends 'forum/base.html' %}
-{% block title %}{{ title }}{% endblock %}
+
 {% block content %}
+<style>
+    /* Your existing styles here */
+
+    .form-label {
+        font-weight: bold;
+        margin-bottom: 5px;
+        display: block;
+    }
+</style>
+
 <div class="container">
-    <div class="row justify-content-center mt-4">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-body">
-                    <!-- Registration Form -->
-                    <form  action="{% url 'register' %}" method='POST' enctype='multipart/form-data'>
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <button type="submit" class="btn btn-primary">Register</button>
-                    </form>
-                </div>
-            </div>
+    <!-- Your existing content here -->
+
+    <form action="{% url 'register' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% if form.errors %}
+        <div class="alert alert-danger" role="alert">
+            <strong>Error!</strong> Please correct the following errors.
+            <ul>
+                {% for error in form.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
         </div>
-    </div>
+        {% endif %} 
+
+
+        <div class="form-group">
+            <label class="form-label" for="{{ form.username.id_for_label }}">Username:</label>
+            <input id="{{ form.username.id_for_label }}" name="{{ form.username.name }}" class="form-control" placeholder="Enter the your username">
+            <div class="form-error">{{ form.username.errors }}</div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label" for="{{ form.description_profile.id_for_label }}">Description Profile:</label>
+            <textarea id="{{ form.description_profile.id_for_label }}" name="{{ form.description_profile.name }}" class="form-control" placeholder="Enter something about you, skills, mood etc..."></textarea>
+            <div class="form-error">{{ form.description_profile.errors }}</div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="form-label" for="{{ form.specialization.id_for_label }}">Specialization:</label>
+            <input type="text" id="{{ form.specialization.id_for_label }}" name="{{ form.specialization.name }}" class="form-control" placeholder="For example: Computer engineering, applied Physics etc...">
+            <div class="form-error">{{ form.specialization.errors }}</div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label" for="{{ form.telegram.id_for_label }}">Telegram:</label>
+            <input type="text" id="{{ form.telegram.id_for_label }}" name="{{ form.telegram.name }}" class="form-control" placeholder="just to cantact with you">
+            <div class="form-error">{{ form.telegram.errors }}</div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label" for="{{ form.course.id_for_label }}">Course:</label>
+            <input type="text" id="{{ form.course.id_for_label }}" name="{{ form.course.name }}" class="form-control">
+            <div class="form-error">{{ form.course.errors }}</div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="form-label" for="{{ form.photo.id_for_label }}">Photo:</label>
+            <input type="file" id="{{ form.photo.id_for_label }}" name="{{ form.photo.name }}" class="form-control">
+            <div class="form-error">{{ form.photo.errors }}</div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label" for="{{ form.password1.id_for_label }}">Password:</label>
+            <input type="password" id="{{ form.password1.id_for_label }}" name="{{ form.password1.name }}" class="form-control" placeholder="Enter your password">
+            <div class="form-error">{{ form.password1.errors }}</div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label" for="{{ form.password2.id_for_label }}">Confirm Password:</label>
+            <input type="password" id="{{ form.password2.id_for_label }}" name="{{ form.password2.name }}" class="form-control" placeholder="Confirm your password">
+            <div class="form-error">{{ form.password2.errors }}</div>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
 </div>
 {% endblock %}
-

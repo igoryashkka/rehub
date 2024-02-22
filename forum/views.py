@@ -2,6 +2,8 @@ from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.views.generic.list import ListView
+from django.contrib import messages
+from django.urls import reverse_lazy
 from forum.models import Post,CustomUser
 from django.contrib.auth.models import User
 from django.views.generic.edit import CreateView
@@ -32,17 +34,19 @@ class Projects(UserMixin,ListView):
     model = Post 
     template_name = 'forum/projects.html'
     context_object_name = 'projects'
-    list_colors = ['badge-primary','badge-secondary','badge-success','badge-danger','badge-warning',' badge-info','badge-dark']
+    list_colors = ['badge-primary','badge-secondary','badge-success','badge-danger','badge-warning','badge-info','badge-dark']
     
     def get_queryset(self):
-        queryset = super().get_queryset()
+        queryset = super().get_queryset().filter(is_published=True) 
         topic_filter = self.request.GET.get('topic_filter')
         if topic_filter:
             topic = Topic.objects.get(title=topic_filter)
             topic_id = topic.id
             print(f"----- {topic_id}")
             if topic_filter:
+                #print()
                 queryset = queryset.filter(topic=topic_id)
+                
         return queryset
 
 
@@ -132,7 +136,9 @@ class RegisterView(View):
         if form.is_valid():
             user = form.save(commit=False)
             user.is_staff = True
-
+            #need to fix this shit, AutoSlug always lowerCase and username can be diff-case
+            #And because of that can be missmatched and you will not get user-profile
+            user.username = user.username.lower()
             user = form.save()
             login(request, user)
             return redirect('home')
@@ -152,6 +158,15 @@ class AddPage(UserMixin,CreateView):
     form_class = AddProjectForm
     template_name = 'forum/addproject.html'
     login_url = '/admin/'
+
+    def form_valid(self, form):
+        # Set the success message
+        messages.success(self.request, 'Your project is being added. Redirecting...')
+        # Save and get redirect URL but do not redirect yet
+        response = super().form_valid(form)
+        # Store the URL for JavaScript to use
+        self.request.session['redirect_url'] = self.get_success_url()
+        return response
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

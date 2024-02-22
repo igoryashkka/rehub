@@ -60,11 +60,11 @@
                     </div>
                 </div>
             </div>
-            <!-- Projects Section -->
+
             <div class="projects-section">
                 <h3>Projects Involved</h3>
                 <div class="row">
-                    <!-- Loop through each project -->
+               
                     {% for project in user_projects %}
                     <div class="col-md-4">
                         <div class="card mb-4">
@@ -74,11 +74,11 @@
                                 <p class="card-text">{{project.description}}</p>
                                 <a href="{{project.get_absolute_url}}" class="btn btn-primary">View Project</a>
                                 
-                                <!-- Latest Activities Block -->
+                               
                                 <div class="latest-activities mt-3">
                                     <h6>Latest Activities:</h6>
                                     <ul>
-                                        <!-- Loop through latest activities -->
+                                
                                         {% for activity in project.latest_activities %}
                                         <li>{{ activity.description }} - <small>{{ activity.date }}</small></li>
                                         {% endfor %}
