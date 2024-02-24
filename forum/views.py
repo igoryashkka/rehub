@@ -83,7 +83,10 @@ class Users(UserMixin,ListView):
         context = super().get_context_data(**kwargs)
         if self.request.user.id != None:
             context.update(self.get_user_details_by_id(self.request.user.id))
-        context['users'] = CustomUser.objects.all()        
+        context['users'] = CustomUser.objects.all()
+        users_ = CustomUser.objects.all()
+        for user in users_:
+            print(f'CustomUser.objects.all() , username: {user.username} photo: {user.photo}')        
 
         return context
     

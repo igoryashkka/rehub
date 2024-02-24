@@ -10,7 +10,8 @@ class CustomUserCreationForm(UserCreationForm):
         
     class Meta(UserCreationForm.Meta):
         model = CustomUser
-        fields = UserCreationForm.Meta.fields + ('photo','specialization','telegram','course','description_profile',)
+        fields = UserCreationForm.Meta.fields + ('photo','specialization','telegram','description_profile',)
+        required_fields = ['photo']
 
 class AddProjectForm(forms.ModelForm):
     def __init__(self, *args,**kwargs):
